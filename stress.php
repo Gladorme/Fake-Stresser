@@ -14,13 +14,19 @@
 			<h1>Fake Stresser</h1>
 		</header>
 		<div class="main">
-		<?php 
-		$host = $_GET["host"];
-		$port = $_GET["port"];
-		$time = $_GET["time"];
-		?>
 			<!-- Rajouter cooldown -->
-			<p>Thanks you for using our services! The stress has been send to <?php echo $host; ?>:<?php echo $port; ?> for <?php echo $time; ?> seconds!</p>
+			<p>
+				<?php
+				if (isset($_GET["host"]) AND isset($_GET["port"]) AND isset($_GET["time"]))
+				{
+					echo 'Thanks you for using our services! The stress has been send to ' . htmlspecialchars($_GET["host"]) . ':' . htmlspecialchars($_GET["port"]) . ' for '. htmlspecialchars($_GET["time"]) . ' seconds!';
+				}
+				else
+				{
+					echo 'Please, fill out the form correctly!';
+				}
+				?>
+			</p>
 		</div>
 
 		<footer>
