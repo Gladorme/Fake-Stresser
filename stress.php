@@ -14,24 +14,26 @@
 			<h1>Fake Stresser</h1>
 		</header>
 		<div class="main">
-			<!-- Rajouter cooldown -->
 			<p>
 				<?php
-				if (isset($_GET["host"]) AND isset($_GET["port"]) AND isset($_GET["time"]))
-				{
-					echo 'Thanks you for using our services! The stress has been send to ' . htmlspecialchars($_GET["host"]) . ':' . htmlspecialchars($_GET["port"]) . ' for '. htmlspecialchars($_GET["time"]) . ' seconds!';
-				}
-				else
-				{
-					echo 'Please, fill out the form correctly!';
-				}
+                if (!isset($_COOKIE['timer'])) {
+                    if (isset($_GET["host"]) AND isset($_GET["port"]) AND isset($_GET["time"])) {
+                        echo 'Thanks you for using our services! The stress has been send to ' . htmlspecialchars($_GET["host"]) . ':' . htmlspecialchars($_GET["port"]) . ' for ' . htmlspecialchars($_GET["time"]) . ' seconds!';
+                        setcookie('timer', $_SERVER['REMOTE_ADDR'], time() + 24 * 3600, null, null, false, true);
+                    } else {
+                        echo 'Please, fill out the form correctly!';
+                    }
+                } else {
+                    echo 'Please wait 24 hours before resend a stress';
+                }
 				?>
 			</p>
 		</div>
 
 		<footer>
-			Powered by MisterSanglad
-			<!-- Stresser non fonctionnel afin de m'améliorer avec le HTML -->
+            Powered by <a href="https://github.com/Gladorme">Guillaume LADORME</a> |
+            Your IP: <?php echo $_SERVER['REMOTE_ADDR']; ?>
+			<!-- Stresser non fonctionnel -->
 		</footer>
 	</body>
 </html>
